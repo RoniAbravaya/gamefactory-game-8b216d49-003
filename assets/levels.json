@@ -1,0 +1,236 @@
+{
+  "levels": [
+    {
+      "level_number": 1,
+      "name": "Gentle Start",
+      "is_free": true,
+      "unlock_requirement": "none",
+      "difficulty": 0.2,
+      "time_limit_seconds": 60,
+      "target_score": 50,
+      "obstacles": {
+        "type": "static_platforms",
+        "count": 5,
+        "speed": 1
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 10,
+        "value": 1
+      },
+      "special_features": [],
+      "background_theme": "grassy_meadow",
+      "music_track": "track_01"
+    },
+    {
+      "level_number": 2,
+      "name": "Bouncing Platforms",
+      "is_free": true,
+      "unlock_requirement": "none",
+      "difficulty": 0.3,
+      "time_limit_seconds": 60,
+      "target_score": 75,
+      "obstacles": {
+        "type": "bouncing_platforms",
+        "count": 7,
+        "speed": 2
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 15,
+        "value": 1
+      },
+      "special_features": [],
+      "background_theme": "grassy_meadow",
+      "music_track": "track_02"
+    },
+    {
+      "level_number": 3,
+      "name": "Spiky Challenges",
+      "is_free": true,
+      "unlock_requirement": "none",
+      "difficulty": 0.4,
+      "time_limit_seconds": 60,
+      "target_score": 100,
+      "obstacles": {
+        "type": "spikes",
+        "count": 10,
+        "speed": 2
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 20,
+        "value": 1
+      },
+      "special_features": [],
+      "background_theme": "grassy_meadow",
+      "music_track": "track_03"
+    },
+    {
+      "level_number": 4,
+      "name": "Shifting Platforms",
+      "is_free": false,
+      "unlock_requirement": "rewarded_ad",
+      "difficulty": 0.5,
+      "time_limit_seconds": 90,
+      "target_score": 150,
+      "obstacles": {
+        "type": "moving_platforms",
+        "count": 8,
+        "speed": 3
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 25,
+        "value": 1
+      },
+      "special_features": [],
+      "background_theme": "industrial_factory",
+      "music_track": "track_04"
+    },
+    {
+      "level_number": 5,
+      "name": "Spiked Platforms",
+      "is_free": false,
+      "unlock_requirement": "rewarded_ad",
+      "difficulty": 0.6,
+      "time_limit_seconds": 90,
+      "target_score": 200,
+      "obstacles": {
+        "type": "spiked_platforms",
+        "count": 10,
+        "speed": 4
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 30,
+        "value": 1
+      },
+      "special_features": [],
+      "background_theme": "industrial_factory",
+      "music_track": "track_05"
+    },
+    {
+      "level_number": 6,
+      "name": "Rotating Hazards",
+      "is_free": false,
+      "unlock_requirement": "rewarded_ad",
+      "difficulty": 0.7,
+      "time_limit_seconds": 120,
+      "target_score": 250,
+      "obstacles": {
+        "type": "rotating_spikes",
+        "count": 12,
+        "speed": 5
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 35,
+        "value": 1
+      },
+      "special_features": [],
+      "background_theme": "industrial_factory",
+      "music_track": "track_06"
+    },
+    {
+      "level_number": 7,
+      "name": "Treacherous Maze",
+      "is_free": false,
+      "unlock_requirement": "rewarded_ad",
+      "difficulty": 0.8,
+      "time_limit_seconds": 120,
+      "target_score": 300,
+      "obstacles": {
+        "type": "moving_platforms",
+        "count": 15,
+        "speed": 6
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 40,
+        "value": 1
+      },
+      "special_features": [
+        "teleportation_pads"
+      ],
+      "background_theme": "industrial_factory",
+      "music_track": "track_07"
+    },
+    {
+      "level_number": 8,
+      "name": "Deadly Gauntlet",
+      "is_free": false,
+      "unlock_requirement": "rewarded_ad",
+      "difficulty": 0.85,
+      "time_limit_seconds": 150,
+      "target_score": 400,
+      "obstacles": {
+        "type": "spiked_platforms",
+        "count": 18,
+        "speed": 7
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 45,
+        "value": 1
+      },
+      "special_features": [
+        "moving_spikes",
+        "disappearing_platforms"
+      ],
+      "background_theme": "industrial_factory",
+      "music_track": "track_08"
+    },
+    {
+      "level_number": 9,
+      "name": "Precision Platforming",
+      "is_free": false,
+      "unlock_requirement": "rewarded_ad",
+      "difficulty": 0.9,
+      "time_limit_seconds": 150,
+      "target_score": 500,
+      "obstacles": {
+        "type": "rotating_spikes",
+        "count": 20,
+        "speed": 8
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 50,
+        "value": 1
+      },
+      "special_features": [
+        "moving_platforms",
+        "disappearing_platforms"
+      ],
+      "background_theme": "industrial_factory",
+      "music_track": "track_09"
+    },
+    {
+      "level_number": 10,
+      "name": "Gauntlet of Doom",
+      "is_free": false,
+      "unlock_requirement": "rewarded_ad",
+      "difficulty": 0.95,
+      "time_limit_seconds": 180,
+      "target_score": 600,
+      "obstacles": {
+        "type": "spiked_platforms",
+        "count": 25,
+        "speed": 9
+      },
+      "collectibles": {
+        "type": "coins",
+        "count": 55,
+        "value": 1
+      },
+      "special_features": [
+        "moving_spikes",
+        "disappearing_platforms",
+        "teleportation_pads"
+      ],
+      "background_theme": "industrial_factory",
+      "music_track": "track_10"
+    }
+  ]
+}
