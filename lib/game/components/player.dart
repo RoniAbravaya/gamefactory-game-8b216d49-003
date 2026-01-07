@@ -1,98 +1,115 @@
 import 'package:flame/components.dart';
-import 'package:flame/input.dart';
+import 'package:flame/geometry.dart';
 import 'package:flame/sprite.dart';
 
-/// The player character in the platformer game.
-class Player extends SpriteAnimationComponent with TapDetector, CollisionCallbacks {
-  /// The player's current health or lives.
+class Player extends SpriteAnimationComponent with HasGameRef, Hitbox, Collidable {
+  double _speed = 200.0;
+  double _jumpForce = -300.0;
+  double _gravity = 1000.0;
+  bool _isJumping = false;
+  Vector2 _velocity = Vector2.zero();
   int _health = 3;
+  bool _isInvulnerable = false;
+  final double _invulnerabilityTime = 2.0;
+  double _invulnerabilityTimer = 0.0;
 
-  /// The player's current score.
-  int _score = 0;
-
-  /// The player's current animation state.
-  PlayerAnimationState _currentAnimationState = PlayerAnimationState.idle;
-
-  /// Initializes the player component with the given position and size.
-  Player(Vector2 position, Vector2 size) : super(position: position, size: size);
+  Player() {
+    addHitbox(HitboxRectangle());
+  }
 
   @override
   Future<void> onLoad() async {
-    await super.onLoad();
-
-    // Load the player's sprite sheet and create the animations
-    final spriteSheet = await loadSpriteSheet();
-    animations = {
-      PlayerAnimationState.idle: spriteSheet.createAnimation(row: 0, columns: 4, stepTime: 0.2),
-      PlayerAnimationState.moving: spriteSheet.createAnimation(row: 1, columns: 4, stepTime: 0.1),
-      PlayerAnimationState.jumping: spriteSheet.createAnimation(row: 2, columns: 2, stepTime: 0.3),
-    };
-
-    // Set the initial animation state
-    current = animations[_currentAnimationState]!;
+    animation = await gameRef.loadSpriteAnimation(
+      'player.png',
+      SpriteAnimationData.sequenced(
+        amount: 4,
+        stepTime: 0.1,
+        textureSize: Vector2.all(48),
+      ),
+    );
+    size = Vector2.all(48);
+    anchor = Anchor.center;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-
-    // Update the player's position and animation based on user input
-    handleInput(dt);
+    _handleMovement(dt);
+    _handleGravity(dt);
+    _handleInvulnerability(dt);
+    position += _velocity * dt;
+    _checkBounds();
   }
 
-  @override
-  void onTapDown(TapDownInfo info) {
-    // Handle the player's jump input
-    jump();
-  }
-
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    // Handle collisions with other game objects
-    if (other is Obstacle) {
-      takeDamage();
+  void _handleMovement(double dt) {
+    if (_isJumping) {
+      _velocity.y += _gravity * dt;
     }
   }
 
-  /// Handles the player's movement and animation based on user input.
-  void handleInput(double dt) {
-    // Implement the player's movement and animation logic here
-    // based on the game's mechanics and controls
+  void _handleGravity(double dt) {
+    if (!isOnGround()) {
+      _velocity.y += _gravity * dt;
+    } else {
+      _velocity.y = 0;
+      _isJumping = false;
+    }
   }
 
-  /// Causes the player to jump.
   void jump() {
-    // Implement the player's jump logic here
-    _currentAnimationState = PlayerAnimationState.jumping;
-    current = animations[_currentAnimationState]!;
-  }
-
-  /// Reduces the player's health by 1.
-  void takeDamage() {
-    _health--;
-    if (_health <= 0) {
-      // The player has died, handle the game over logic
+    if (!_isJumping) {
+      _velocity.y = _jumpForce;
+      _isJumping = true;
     }
   }
 
-  /// Increases the player's score by the given amount.
-  void addScore(int amount) {
-    _score += amount;
+  bool isOnGround() {
+    // This method should be implemented to check if the player is on the ground
+    return position.y >= gameRef.size.y - size.y / 2;
   }
 
-  /// Loads the player's sprite sheet.
-  Future<SpriteSheet> loadSpriteSheet() async {
-    // Load the player's sprite sheet and return it
-    return SpriteSheet.fromImage(
-      await images.load('player_spritesheet.png'),
-      srcSize: Vector2(32, 32),
-    );
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, Collidable other) {
+    if (other is Obstacle && !_isInvulnerable) {
+      _takeDamage();
+    } else if (other is Collectible) {
+      // Handle collectible logic
+    }
+  }
+
+  void _takeDamage() {
+    _health -= 1;
+    _isInvulnerable = true;
+    _invulnerabilityTimer = _invulnerabilityTime;
+    if (_health <= 0) {
+      // Handle player death
+    }
+  }
+
+  void _handleInvulnerability(double dt) {
+    if (_isInvulnerable) {
+      _invulnerabilityTimer -= dt;
+      if (_invulnerabilityTimer <= 0) {
+        _isInvulnerable = false;
+      }
+    }
+  }
+
+  void _checkBounds() {
+    if (position.y > gameRef.size.y) {
+      // Handle falling off the platforms
+    }
   }
 }
 
-/// The possible animation states for the player.
-enum PlayerAnimationState {
-  idle,
-  moving,
-  jumping,
+class Obstacle extends SpriteComponent with Collidable {
+  Obstacle() {
+    addHitbox(HitboxRectangle());
+  }
+}
+
+class Collectible extends SpriteComponent with Collidable {
+  Collectible() {
+    addHitbox(HitboxCircle());
+  }
 }
